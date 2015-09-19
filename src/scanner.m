@@ -1,22 +1,52 @@
 %----------------------------------------------------------------------------%
 % vim: ft=mercury ff=unix ts=4 sw=4 et
 %----------------------------------------------------------------------------%
-% File: program.m
+% File: scanner.m
 % Copyright © 2015 Sebastian Godelet
 % Main author: Sebastian Godelet <sebastian.godelet@outlook.com>
-% Created on: Sun Sep 13 16:19:44 CST 2015
+% Created on: Sat Sep 19 11:57:42 CST 2015
 % Stability: low
 %----------------------------------------------------------------------------%
-% Parses Delphi programs.
+% Scans Delphi source files into tokens.
 %----------------------------------------------------------------------------%
 
-:- module parser.program.
+:- module scanner.
 
 :- interface.
 
+:- import_module char.
+:- import_module list.
+
 %----------------------------------------------------------------------------%
 
-:- pred parse_program(ast::out(program)) : parse_pred `with_inst` parse_pred.
+:- type chars == list(char).
+
+:- type tokens == list(token).
+
+:- type token
+    --->    program
+    ;       library
+    ;       unit
+    ;       package
+    ;       (type)
+    ;       (interface)
+    ;       (implementation)
+    ;       uses
+    ;       name(string)
+    ;       string(string)
+    ;       dotted_name(list(string))
+    ;       int(int)
+    ;       char(char)
+    ;       (:)
+    ;       (',')
+    ;       ('.')
+    .
+
+:- type scan_pred == pred(chars, chars).
+
+:- inst scan_pred == (pred(in, out) is semidet).
+
+:- pred scan(tokens::out) : scan_pred `with_inst` scan_pred.
 
 %----------------------------------------------------------------------------%
 %----------------------------------------------------------------------------%
@@ -25,9 +55,9 @@
 
 %----------------------------------------------------------------------------%
 
-parse_program(program(Name)) -->
-    [name(Name)].
+scan([]) -->
+    [].
 
 %----------------------------------------------------------------------------%
-:- end_module parser.program.
+:- end_module scanner.
 %----------------------------------------------------------------------------%

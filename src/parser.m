@@ -14,22 +14,29 @@
 
 :- interface.
 
-:- import_module char.
 :- import_module list.
+
+:- import_module scanner.
 
 %----------------------------------------------------------------------------%
 
-:- type chars == list(char).
-
 :- type ast
-    --->    program
-    ;       library
-    ;       unit
-    ;       package.
+    --->    program(string)
+    ;       library(string)
+    ;       unit(list(string))
+    ;       package(string)
+    .
 
-:- inst program ---> program.
+:- inst program ---> program(ground).
+:- inst library ---> library(ground).
+:- inst unit    ---> unit(list(ground)).
+:- inst package ---> package(ground).
 
-:- pred parse(ast::out, chars::in, chars::out) is semidet.
+:- type parse_pred == pred(tokens, tokens).
+
+:- inst parse_pred == (pred(in, out) is semidet).
+
+:- pred parse(ast::out) : parse_pred `with_inst` parse_pred.
 
 %----------------------------------------------------------------------------%
 %----------------------------------------------------------------------------%
@@ -37,25 +44,32 @@
 :- implementation.
 
 :- include_module parser.program.
+:- include_module parser.library.
+:- include_module parser.unit.
+:- include_module parser.package.
+
 :- import_module parser.program.
-%:- include_module parser.library.
-%:- include_module parser.unit.
-%:- include_module parser.package.
+:- import_module parser.library.
+:- import_module parser.unit.
+:- import_module parser.package.
 
 %----------------------------------------------------------------------------%
 
 parse(Program) -->
-    [p, r, o, g, r, a, m],
+    [program],
     parse_program(Program).
 
-parse(library) -->
-    [l, i, b, r, a, r, y].
+parse(Library) -->
+    [library],
+    parse_library(Library).
 
-parse(unit) -->
-    [u, n, i, t].
+parse(Unit) -->
+    [unit],
+    parse_unit(Unit).
 
-parse(package) -->
-    [p, a, c, k, a, g, e].
+parse(Package) -->
+    [package],
+    parse_package(Package).
 
 %----------------------------------------------------------------------------%
 :- end_module parser.

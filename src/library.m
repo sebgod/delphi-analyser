@@ -1,22 +1,22 @@
 %----------------------------------------------------------------------------%
 % vim: ft=mercury ff=unix ts=4 sw=4 et
 %----------------------------------------------------------------------------%
-% File: program.m
+% File: library.m
 % Copyright © 2015 Sebastian Godelet
 % Main author: Sebastian Godelet <sebastian.godelet@outlook.com>
-% Created on: Sun Sep 13 16:19:44 CST 2015
+% Created on: Sat Sep 19 12:50:02 CST 2015
 % Stability: low
 %----------------------------------------------------------------------------%
-% Parses Delphi programs.
+% Parses Delphi libraries.
 %----------------------------------------------------------------------------%
 
-:- module parser.program.
+:- module parser.library.
 
 :- interface.
 
 %----------------------------------------------------------------------------%
 
-:- pred parse_program(ast::out(program)) : parse_pred `with_inst` parse_pred.
+:- pred parse_library(ast::out(library)) : parse_pred `with_inst` parse_pred.
 
 %----------------------------------------------------------------------------%
 %----------------------------------------------------------------------------%
@@ -25,9 +25,9 @@
 
 %----------------------------------------------------------------------------%
 
-parse_program(program(Name)) -->
+parse_library(library(Name)) -->
     [name(Name)].
 
 %----------------------------------------------------------------------------%
-:- end_module parser.program.
+:- end_module parser.library.
 %----------------------------------------------------------------------------%

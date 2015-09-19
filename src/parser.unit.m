@@ -1,22 +1,22 @@
 %----------------------------------------------------------------------------%
 % vim: ft=mercury ff=unix ts=4 sw=4 et
 %----------------------------------------------------------------------------%
-% File: program.m
+% File: unit.m
 % Copyright © 2015 Sebastian Godelet
 % Main author: Sebastian Godelet <sebastian.godelet@outlook.com>
 % Created on: Sun Sep 13 16:19:44 CST 2015
 % Stability: low
 %----------------------------------------------------------------------------%
-% Parses Delphi programs.
+% Parses Delphi units.
 %----------------------------------------------------------------------------%
 
-:- module parser.program.
+:- module parser.unit.
 
 :- interface.
 
 %----------------------------------------------------------------------------%
 
-:- pred parse_program(ast::out(program)) : parse_pred `with_inst` parse_pred.
+:- pred parse_unit(ast::out(unit)) : parse_pred `with_inst` parse_pred.
 
 %----------------------------------------------------------------------------%
 %----------------------------------------------------------------------------%
@@ -25,9 +25,9 @@
 
 %----------------------------------------------------------------------------%
 
-parse_program(program(Name)) -->
-    [name(Name)].
+parse_unit(unit(Name)) -->
+    [dotted_name(Name)].
 
 %----------------------------------------------------------------------------%
-:- end_module parser.program.
+:- end_module parser.unit.
 %----------------------------------------------------------------------------%
