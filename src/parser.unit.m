@@ -25,8 +25,8 @@
 
 %----------------------------------------------------------------------------%
 
-parse_unit(unit(Name)) -->
-    [dotted_name(Name)].
+parse_unit(unit([Name])) -->
+    [name(Name)]. % needs to parse for a list
 
 %----------------------------------------------------------------------------%
 :- end_module parser.unit.

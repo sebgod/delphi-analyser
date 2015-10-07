@@ -7,7 +7,7 @@
 % Created on: Sun Sep 13 16:03:33 CST 2015
 % Stability: low
 %----------------------------------------------------------------------------%
-% Parses Delphi source files.
+% Parses tokenised Delphi source files.
 %----------------------------------------------------------------------------%
 
 :- module parser.
